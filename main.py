@@ -4,24 +4,25 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import os
 import librosa
-import librosa.display as dsp
-from IPython.display import Audio as ipd
-from IPython.lib.display import Audio
-from matplotlib import pyplot as plt
+# import librosa.display as dsp
+# from IPython.display import Audio as ipd
+# from IPython.lib.display import Audio
+import matplotlib
 import numpy as np
 import pandas as pd
 from glob import glob
 
 
 def print_plot_play(x, Fs, text=''):
-    print('%s Fs = %d, x.shape = %s, x.dtype = %s' % (text, Fs, x.shape, x.dtype))
-    plt.figure(figsize=(8, 2))
-    plt.plot(x, color='gray')
-    plt.xlim([0, x.shape[0]])
-    plt.xlabel('Time (samples)')
-    plt.ylabel('Amplitude')
-    plt.tight_layout()
-    plt.show()
+    print('%s Fs = %d, x.shape = %s, x.dtype = %s' %
+          (text, Fs, x.shape, x.dtype))
+    matplotlib.figure(figsize=(8, 2))
+    matplotlib.plot(x, color='gray')
+    matplotlib.xlim([0, x.shape[0]])
+    matplotlib.xlabel('Time (samples)')
+    matplotlib.ylabel('Amplitude')
+    matplotlib.tight_layout()
+    matplotlib.show()
     # ipd.display(ipd.Audio(data=x, rate=Fs))
 
 
@@ -30,8 +31,9 @@ def calAverage(arr):
     length = len(arr)
     return sum / length
 
+
 data_dir = './audio-folder/honda'
-audio_files = glob(data_dir +'/*.wav')
+audio_files = glob(data_dir + '/*.wav')
 print(audio_files)
 
 # Read wav
@@ -62,10 +64,10 @@ for i in range(0, len(audio_files), 1):
     zeroXrate = round(calAverage(zeroXrate[0]), 3)
     specCenteroid = round(calAverage(specCenteroid[0]), 3)
     bandwidthMin = round(bandwidth[0], 3)
-    bandwidthMax = round(bandwidth[len(bandwidth) - 1],3)
+    bandwidthMax = round(bandwidth[len(bandwidth) - 1], 3)
     tempo = round(tempo, 3)
 
-    data = "\t"+ str(rms) + "\t\t" + str(zeroXrate) + " \t\t" \
+    data = "\t" + str(rms) + "\t\t" + str(zeroXrate) + " \t\t" \
            + str(specCenteroid) + "\t\t" + str(bandwidthMin) + "-" + str(bandwidthMax) + "\t" \
            + str(tempo) + "\n"
 
